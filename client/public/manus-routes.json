@@ -1,0 +1,6 @@
+{
+  "routes": [
+    { "path": "/", "title": "SCM Logistik" },
+    { "path": "/sales", "title": "Sales Display · SCM Logistik" }
+  ]
+}
