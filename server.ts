@@ -1,10 +1,6 @@
-
-import express from "express";
-
-// @ts-ignore — dist/index.js dibuat otomatis saat build
+```ts
+// @ts-ignore
 import { createApp } from "./dist/index.js";
 
-const app = express();
-app.use(createApp());
-
-export default app;
+export default createApp();
+```
