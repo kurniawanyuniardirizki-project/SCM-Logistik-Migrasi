@@ -1,6 +1,7 @@
 import express from "express";
-import { createApp } from "./server/index";
+import { createApp } from "./server/_core/index";
 
-const app = createApp();
+const app = express();
+app.use(createApp());
 
 export default app;
