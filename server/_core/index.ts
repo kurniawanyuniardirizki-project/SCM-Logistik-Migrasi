@@ -7,7 +7,6 @@ import { registerOAuthRoutes } from "./oauth.js";
 import { appRouter } from "../routers";
 import { getPublicStockSummary } from "../publicStockSummary";
 import { createContext } from "./context";
-import { serveStatic, setupVite } from "./vite";
 
 export function createApp() {
   const app = express();
@@ -61,6 +60,9 @@ async function startServer() {
   const app = createApp();
   const server = createServer(app);
 
+  // Vite hanya dimuat untuk server lokal, bukan Vercel.
+  const { setupVite, serveStatic } = await import("./vite.js");
+
   if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);
   } else {
@@ -74,6 +76,7 @@ async function startServer() {
   });
 }
 
+// Vercel menggunakan createApp() melalui server.ts.
 if (!process.env.VERCEL) {
   startServer().catch(console.error);
 }
