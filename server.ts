@@ -1,8 +1,9 @@
-```ts
-import "express";
+import express from "express";
 
 // @ts-ignore
 import { createApp } from "./dist/index.js";
 
-export default createApp();
-```
+const app = express();
+app.use(createApp());
+
+export default app;
