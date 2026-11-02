@@ -3,7 +3,7 @@ import "dotenv/config";
 import express from "express";
 import { createServer } from "http";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
-import { registerOAuthRoutes } from "./oauth";
+import { registerOAuthRoutes } from "./oauth.js";
 import { appRouter } from "../routers";
 import { getPublicStockSummary } from "../publicStockSummary";
 import { createContext } from "./context";
