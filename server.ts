@@ -1,6 +1,7 @@
-// @ts-expect-error dist/index.js dibuat otomatis saat proses build
+import express from "express";
 import { createApp } from "./dist/index.js";
 
-const app = createApp();
+const app = express();
+app.use(createApp());
 
 export default app;
