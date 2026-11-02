@@ -1,6 +1,7 @@
 
 import "dotenv/config";
 import express from "express";
+import path from "path";
 import { createServer } from "http";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth.js";
@@ -53,6 +54,17 @@ export function createApp() {
     }),
   );
 
+  // Vercel menyajikan frontend langsung dari hasil Vite build.
+  if (process.env.VERCEL) {
+    const distPath = path.resolve(process.cwd(), "dist", "public");
+
+    app.use(express.static(distPath));
+
+    app.get("*", (_req, res) => {
+      res.sendFile(path.join(distPath, "index.html"));
+    });
+  }
+
   return app;
 }
 
@@ -60,7 +72,7 @@ async function startServer() {
   const app = createApp();
   const server = createServer(app);
 
-  // Vite hanya dimuat untuk server lokal, bukan Vercel.
+  // Vite hanya dimuat untuk server lokal.
   const { setupVite, serveStatic } = await import("./vite.js");
 
   if (process.env.NODE_ENV === "development") {
